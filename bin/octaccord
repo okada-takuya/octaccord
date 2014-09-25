@@ -292,16 +292,16 @@ class OctaccordCLI < Thor
       })
 
       $OCTACCORD_DEBUG = true if options[:debug]
-      @store ||= FileStore.new
-      @stack ||= Faraday::RackBuilder.new do |builder|
-        builder.response :logger if options[:debug]
-        builder.use Faraday::HttpCache, shared_cache: false, store: @store, serializer: YAML
-        builder.use Octokit::Response::RaiseError
-        builder.adapter Faraday.default_adapter
-      end
+      # @store ||= FileStore.new
+      # @stack ||= Faraday::RackBuilder.new do |builder|
+      #   builder.response :logger if options[:debug]
+      #   builder.use Faraday::HttpCache, shared_cache: false, store: @store, serializer: YAML
+      #   builder.use Octokit::Response::RaiseError
+      #   builder.adapter Faraday.default_adapter
+      # end
 
-      Octokit.middleware = @stack
-      Octokit.auto_paginate = true
+      # Octokit.middleware = @stack
+      # Octokit.auto_paginate = true
       @client ||= Octokit::Client.new(:login    => @config["login"],
                                       :password => @config["password"])
     end
